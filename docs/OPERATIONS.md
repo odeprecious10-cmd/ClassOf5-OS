@@ -27,6 +27,13 @@ More than 100 releases followed this path in October 2026; the milestones are in
 - **Real-time alerts:** one email if a tutor hasn't joined 10 minutes after the start, with the cover options.
 - **Team activity:** every change by a manager, by day, with filters; repeated jobs counted; prunable by the owner.
 
+## Monitoring
+
+- **Hourly uptime checks** (GitHub Actions, 7 am to midnight Toronto time): the key pages, a health check for the database, the scheduled jobs and the daily backup, the staging site, and SSL certificate expiry.
+- **Privacy-safe health check:** the site answers only yes/no facts (database answering, jobs ran recently, backup made), never names, money or settings.
+- **One alert per incident:** a problem opens a tracked issue and emails the office; when the next check passes it closes itself and sends a "back to normal" email. No repeat emails while a problem is open, and a page is only counted as down after three failed tries.
+- Built to run on the free GitHub Actions allowance alongside CI and deployments.
+
 ## Backups and recovery
 
 - Daily database backup of every table, kept 30 days.

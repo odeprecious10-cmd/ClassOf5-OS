@@ -19,7 +19,7 @@
 | **Timeline** | October 2026: **100+ releases** in four weeks, through a test site to production |
 | **Environments** | Password-protected **staging** site (classof5.online) and **production** (classof5.com); every release goes to staging first |
 | **Quality** | **~2,300 automated checks in 66 test suites** (API, database and real-browser tests) |
-| **CI/CD** | **GitHub Actions:** key suites on every push and the full suite nightly; green builds deploy to staging automatically; production deploys by approval, gated on passing tests, with backup and health check |
+| **CI/CD** | **GitHub Actions:** key suites on every push and the full suite nightly; green builds deploy to staging automatically; production deploys by approval, gated on passing tests, with backup and health check; hourly uptime monitoring with email alerts |
 | **Scale built for** | 3 timetables (Toronto, Vancouver, UK time) · 6 levels · sections of 5 · waiting lists · 3 staff roles · families paying for up to 5 children in one payment |
 | **Design** | **Lightweight and ready to deploy:** no build step or framework lock-in; runs on any PHP + MySQL host, cloud VM or container; a release is one package |
 | **Status** | In production, enrolment open; first classes 11 January 2027 |
@@ -110,6 +110,7 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - **Privacy by design.** Children's names, emails and phone numbers are masked before any AI call. Tutors never see contact details. Contact details typed into lesson notes are removed automatically. Recordings are kept 90 days.
 - **Email deliverability.** Transactional email through Resend, signed for the domain; SPF, DKIM and DMARC records being finalised for launch.
 - **Testing.** About 2,300 checks in 66 suites, including real-browser tests at phone and desktop widths and a crawl of every page for every role. → [docs/TESTING.md](docs/TESTING.md)
+- **Uptime monitoring.** Hourly checks of the live site, database, scheduled jobs, daily backup and SSL certificates. A problem opens one tracked issue and emails the office; it closes itself when fixed. → [docs/OPERATIONS.md](docs/OPERATIONS.md#monitoring)
 - **CI with GitHub Actions.** I made the suite portable and moved it onto clean GitHub runners. The first runs exposed environment drift (outdated time-zone data, location-based lookups) and **a real production bug**: the Pricing page crashed for browsers reporting an unusual language tag (`en-US@posix`), so those visitors saw no class times. Found, fixed and released the same night. → [docs/CI.md](docs/CI.md)
 
 ## What's next: cloud roadmap
@@ -120,6 +121,7 @@ ClassOf5 OS is **lightweight and ready to deploy**: no build step, no framework 
 - [ ] **Off-site backups** to Azure Blob Storage or AWS S3, with retention rules
 - [ ] **Infrastructure as code** with Terraform for that storage and its access
 - [ ] **Docker** image of the full stack for local and test runs
+- [x] **Monitoring**: hourly uptime checks with email alerts ✅
 - [ ] **Cloud migration design** (Azure App Service + Azure Database for MySQL, or AWS EC2/Lightsail + RDS + CloudFront)
 
 ## Milestones
